@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Đồ thị hàm số</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.0.0/math.min.js"
+		integrity="sha512-2/6UJO9SBO6ElzgeETlFUdHgMkhe+0QZH64KTtz18x6GA3Z6PpBHDJFvWrGCsXVQI1E2S/pB4Zqqdn0MEv5+Vg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"
+		integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/1.0.2/chartjs-plugin-annotation.min.js"
+		integrity="sha512-FuXN8O36qmtA+vRJyRoAxPcThh/1KJJp7WSRnjCpqA+13HYGrSWiyzrCHalCWi42L5qH1jt88lX5wy5JyFxhfQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link href="ddchart.css" rel="stylesheet" />
+
+</head>
+
+<style>
+
+*{padding: 0;
+  margin: 0;
+  text-align: center;
+        }
+.menu
+        {
+            border: solid 5px #FFFFCC;
+            border-radius: 3px;
+            border-style: outset;
+            margin-top: 20px;
+             background-color: #FFFFCC;
+              margin: 20px 30px 0px 30px; }  
+ .dothi
+        {
+            border: solid 5px #FFCC66;
+            border-radius: 8px;
+            border-style: outset;
+            margin-top: 20px;
+            background-color: #FFCC66;
+            margin: 10px 350px 10px 350px; }
+
+  .khung
+        {
+            border: solid 5px #FFCC66;
+            border-radius: 8px;
+            border-style: outset;
+            margin-top: 20px;
+            background-color: #FFCC66;
+            margin: 10px 80px 60px 80px; }
+              }
+.verticalLine {
+  border-left: thick solid #ff0000;
+  border-style: inset;
+  background-color: #FFFF99;
+  
+}
+.verticalLine :hover {
+    transform: scale(1.05);
+}
+.form_data form {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.form_data input {
+		padding: 5px 3px;
+		border-radius:50px;
+		font-size: 16px;
+        width: 50px;
+	}
+
+	.form_data label {
+		color: #FFFFFF;
+		background-color: #FF6600;
+		padding: 3px 10px;
+		border-radius: 50px;
+		display: inline-block;
+		vertical-align: middle;
+        border-style: inset;
+	}
+
+	#canvas{
+		height: 400px;
+		background-color: rgb(192,192,192);
+		margin-top: 25px;
+		border-radius: 5px;
+		padding: 15px;
+	}
+
+	.input-group {
+		color: rgb(255, 255, 255);
+	}
+
+	.input-group:first-child {
+		margin: 0 15px;
+	}
+
+	.color_group {
+		display: flex;
+	}
+
+	.colorpicker {
+		border: 3px solid transparent;
+		cursor: pointer;
+		width: 20px;
+		height: 20px;
+		margin-right: 5px;
+		border-radius: 5px;
+		margin-top: 10px;
+	}
+	ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color:#999966;
+}
+li {
+    float: left;
+}
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-style: outset;
+}
+li a:hover:not(.active) {
+    background-color: #CCCCCC;
+    border-style: inset;
+}
+.active {
+    background-color: #FF6633;
+}
+</style>
+
+<body background="https://media.istockphoto.com/vectors/background-of-checkered-pastel-blue-stripes-vector-id1013722220?k=20&m=1013722220&s=170667a&w=0&h=zcfKbcKEnHD9K3Zfa09dVfCnILisM2skhVviw6PX1c8=">
+	<div class="menu"> 
+		<ul>
+			<li> <a class="active" href="https://minhtamb1905977.github.io/TAM/Home">Home </a></li>
+			<li> <a href="https://minhtamb1905977.github.io/TAM/ptr">Giải phương trình bậc 2</a></li>
+			<li> <a href="https://minhtamb1905977.github.io/TAM/dothi">Đồ thị</a></li>
+		</ul> </div>
+		 <table align="center" cellpadding="20" cellspacing="20"> 
+            <tr> <td>
+            <h2>Đồ thị hàm cơ bản</h2>
+<li class="graphSelect chart_type" id="bacHai">Đồ thị bậc hai</li> <br>
+<li class="graphSelect chart_type" id="bacBa">Đồ thị bậc ba</li> <br>
+<li class="graphSelect chart_type" id="bacBon">Đồ thị bậc bốn</li>
+ </td> <td>
+						<h2>Đồ thị hàm lượng giác</h2>
+							<li class="graphSelect chart_type" id="sin">Đồ thị hàm Sin</li> <br>
+							<li class="graphSelect chart_type" id="cos">Đồ thị hàm Cos</li> <br>
+							<li class="graphSelect chart_type" id="tan">Đồ thị hàm Tan</li> 
+                            </td> </tr> </table> <hr>
+           <div class="dothi">
+						<div class="form_data">
+							<p  style="font-family:Courier;font-size: 150%; color:  #990000;"><b>Nhập các hệ số</b></p>
+							<form class="coeff-form" role="presentation" autocomplete="off">
+<div class="input_group" id="a-coeff">
+<label for="number_a">a</label>
+<input type="text" class="form-control" id="number_a" />
+	</div>
+<div class="input_group" id="b-coeff">
+<label for="number_b">b</label>
+<input type="text" class="form-control" id="number_b" />
+</div>
+<div class="input_group" id="c-coeff">
+<label for="number_c">c</label>
+<input type="text" class="form-control" id="number_c" />
+</div>
+<div class="input-group" id="d-coeff">
+<label for="number_d">d</label>
+<input type="text" class="form-control" id="number_d" />
+</div>
+</form>
+</div>
+</div>
+<div class="khung">
+				<div class="container">
+						<div class="color_group">
+							<div class="colorpicker" id="009966"></div>
+							<div class="colorpicker" id="FF0000"></div>
+							<div class="colorpicker" id="0000DD"></div>
+							<div class="colorpicker" id="8B3A3A"></div>
+							<div class="colorpicker" id="FFFF00"></div>
+							<div class="colorpicker" id="000000"></div>
+                            <div class="colorpicker" id="FF6600"></div>
+						</div>
+					</div>
+
+					<div class="content">
+						<div id="canvas">
+							<canvas id="myChart"></canvas>
+						</div>
+					</div>
+
+
+	<script>
+		const colorPickers = document.querySelectorAll('.container .colorpicker')
+		colorPickers.forEach(color => {
+			color.style.backgroundColor = '#' + color.id
+		})
+	</script>
+
+	<script type="module" src="Chart.js"></script>
+</body>
+
+</html>

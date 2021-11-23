@@ -13,7 +13,7 @@ let coeffDics = {
 }
 
 
-let step = 0.
+let step = 0.5
 let pointRadius = 0
 let Linecolor = '#CC0000'
 let graphSelected = 'bacHai'
